@@ -7,25 +7,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
-/**
- * Created by Luke on 6/11/2015.
- */
 public class ArtistSearchAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<MyArtist> artistSearchList;
-    private int mResourceLayout;
     private LayoutInflater mInflater;
 
+    private ImageView mImageView;
+    private TextView mTextView;
+    private MyArtist mArtist;
+    private String mThumbnailUrl;
 
-    public ArtistSearchAdapter(Context mContext, int mResourceLayout, List<MyArtist> artistSearchList) {
+    public ArtistSearchAdapter(Context mContext, List<MyArtist> artistSearchList) {
         this.mContext = mContext;
-        this.mResourceLayout = mResourceLayout;
         this.artistSearchList = artistSearchList;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -54,15 +51,15 @@ public class ArtistSearchAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item_artist_search, parent, false);
         }
-        MyArtist artist = getItem(position);
-        ImageView artistCover = (ImageView) convertView.findViewById(R.id.imageView_artist);
-        TextView artistName = (TextView) convertView.findViewById(R.id.textView_artist);
-        artistName.setText(artist.getArtistName());
-        String thumbnailUrl = artist.getThumbnailUrl();
-        if (thumbnailUrl.length() == 0) {
-            Picasso.with(mContext).load(R.drawable.artist).resize(200, 200).centerCrop().into(artistCover);
+        mArtist = getItem(position);
+        mImageView = (ImageView) convertView.findViewById(R.id.imageView_artist);
+        mTextView = (TextView) convertView.findViewById(R.id.textView_artist);
+        mTextView.setText(mArtist.getArtistName());
+        mThumbnailUrl = mArtist.getThumbnailUrl();
+        if (mThumbnailUrl.length() == 0) {
+            Picasso.with(mContext).load(R.drawable.artist).resize(200, 200).centerCrop().into(mImageView);
         } else {
-            Picasso.with(mContext).load(thumbnailUrl).resize(200, 200).centerCrop().into(artistCover);
+            Picasso.with(mContext).load(mThumbnailUrl).resize(200, 200).centerCrop().into(mImageView);
         }
         return convertView;
     }

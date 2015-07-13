@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class TopTracksActivity extends ActionBarActivity {
 
     private static final String TOP_TRACKS_PARCELABLE_KEY = "top_tracks";
-
     private String mArtistId;
     private TopTrackAdapter mAdapter;
     private ListView mListView;
@@ -32,13 +31,12 @@ public class TopTracksActivity extends ActionBarActivity {
         setContentView(R.layout.activity_toptracks);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mListView = (ListView) findViewById(R.id.listView_top_tracks);
-
         if (savedInstanceState == null) {
-            mArtistId = getIntent().getExtras().getString("artist");
+            mArtistId = getIntent().getExtras().getString(Constant.BUNDLE_ARTIST_KEY);
             new AsyncLoading().execute();
         } else {
             mTopTrackList = savedInstanceState.getParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY);
-            mAdapter = new TopTrackAdapter(TopTracksActivity.this, R.layout.list_item_top_tracks, mTopTrackList);
+            mAdapter = new TopTrackAdapter(TopTracksActivity.this, mTopTrackList);
             mListView.setAdapter(mAdapter);
         }
     }
@@ -70,12 +68,12 @@ public class TopTracksActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                     MyTrack selectedTrack = mAdapter.getItem(position);
                     Bundle bundle = new Bundle();
-                    bundle.putString("track", selectedTrack.getTrack());
-                    bundle.putString("album", selectedTrack.getAlbum());
-                    bundle.putString("url", selectedTrack.getThumbnailUrl());
-                    bundle.putString("artist", selectedTrack.getArtist());
+                    bundle.putString(Constant.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
+                    bundle.putString(Constant.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
+                    bundle.putString(Constant.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
+                    bundle.putString(Constant.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
                     Intent intent = new Intent(TopTracksActivity.this, PlayerActivity.class);
-                    intent.putExtra("selected_track", bundle);
+                    intent.putExtra(Constant.BUNDLE_SELECTED_TRACK_KEY, bundle);
                     startActivity(intent);
                 }
             });
@@ -102,17 +100,15 @@ public class TopTracksActivity extends ActionBarActivity {
                 if (topTrackList.size() == 0) {
                     Toast.makeText(TopTracksActivity.this, "There is no track found.", Toast.LENGTH_SHORT).show();
                 } else {
-                    mAdapter = new TopTrackAdapter(TopTracksActivity.this, R.layout.list_item_top_tracks, mTopTrackList);
+                    mAdapter = new TopTrackAdapter(TopTracksActivity.this, mTopTrackList);
                     mListView.setAdapter(mAdapter);
                 }
-
             }
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();

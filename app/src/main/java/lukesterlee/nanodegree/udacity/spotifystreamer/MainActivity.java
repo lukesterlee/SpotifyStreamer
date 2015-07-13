@@ -37,7 +37,6 @@ public class MainActivity extends ActionBarActivity {
             if (mEditText.getText().length() != 0) {
                 new ArtistSearchTask().execute(mEditText.getText().toString());
             }
-
         }
     };
 
@@ -47,10 +46,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mToast = Toast.makeText(MainActivity.this, "There is no artist found.", Toast.LENGTH_SHORT);
         initializeViews();
-
         if (savedInstanceState != null) {
             mArtistSearchList = savedInstanceState.getParcelableArrayList(ARTIST_SEARCH_PARCELABLE_KEY);
-            mAdapter = new ArtistSearchAdapter(MainActivity.this, R.layout.list_item_artist_search, mArtistSearchList);
+            mAdapter = new ArtistSearchAdapter(MainActivity.this, mArtistSearchList);
             mListView.setAdapter(mAdapter);
         }
     }
@@ -71,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String artistId = mAdapter.getArtistId(position);
                     Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-                    intent.putExtra("artist", artistId);
+                    intent.putExtra(Constant.BUNDLE_ARTIST_KEY, artistId);
                     startActivity(intent);
                 }
             });
@@ -109,12 +107,10 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,7 +136,7 @@ public class MainActivity extends ActionBarActivity {
                     mToast.show();
                 } else {
                     mToast.cancel();
-                    mAdapter = new ArtistSearchAdapter(MainActivity.this, R.layout.list_item_artist_search, mArtistSearchList);
+                    mAdapter = new ArtistSearchAdapter(MainActivity.this, mArtistSearchList);
                     mListView.setAdapter(mAdapter);
                 }
             }
@@ -150,7 +146,6 @@ public class MainActivity extends ActionBarActivity {
     private class ArtistSearchWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
         }
         @Override
         public void onTextChanged(CharSequence charSequence, int position, int i2, int i3) {
@@ -162,7 +157,6 @@ public class MainActivity extends ActionBarActivity {
         }
         @Override
         public void afterTextChanged(Editable editable) {
-
         }
     }
 }

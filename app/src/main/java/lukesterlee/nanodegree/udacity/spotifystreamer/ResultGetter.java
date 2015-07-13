@@ -1,13 +1,11 @@
 package lukesterlee.nanodegree.udacity.spotifystreamer;
 
 import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.AlbumSimple;
@@ -19,7 +17,6 @@ import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.Tracks;
 
 public class ResultGetter {
-    private static final String TAG = "ResultGetter";
     private static final String COUNTRY_KEY = "country";
     private static final String USA_CODE = "us";
     private String input;
@@ -49,7 +46,6 @@ public class ResultGetter {
             newArtist.setArtistId(artist.id);
             artistSearchList.add(newArtist);
         }
-
         return artistSearchList;
     }
 

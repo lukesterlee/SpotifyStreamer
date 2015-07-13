@@ -7,21 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class TopTrackAdapter extends BaseAdapter {
     private Context mContext;
     private List<MyTrack> mTopTrackList;
-    private int mResourceLayout;
     private LayoutInflater mInflater;
 
-    public TopTrackAdapter(Context context, int resource, List<MyTrack> mTopTrackList) {
+    public TopTrackAdapter(Context context, List<MyTrack> mTopTrackList) {
         this.mContext = context;
         this.mTopTrackList = mTopTrackList;
-        this.mResourceLayout = resource;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -43,7 +39,7 @@ public class TopTrackAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(mResourceLayout, parent, false);
+            convertView = mInflater.inflate(R.layout.list_item_top_tracks, parent, false);
         }
         MyTrack item = getItem(position);
         ImageView albumCover = (ImageView) convertView.findViewById(R.id.imageView);
