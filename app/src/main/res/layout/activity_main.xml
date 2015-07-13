@@ -11,6 +11,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text=""
         android:id="@+id/editText_search_artist"
         android:layout_gravity="center_horizontal" />
 
