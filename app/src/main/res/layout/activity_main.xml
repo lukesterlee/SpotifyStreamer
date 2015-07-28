@@ -5,16 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/editText_search_artist"
         android:layout_gravity="center_horizontal" />
-
 
     <ListView
         android:layout_width="match_parent"
