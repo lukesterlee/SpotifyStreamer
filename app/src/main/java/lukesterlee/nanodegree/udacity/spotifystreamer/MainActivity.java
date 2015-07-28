@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String artistId = mAdapter.getArtistId(position);
                     Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-                    intent.putExtra(Constant.BUNDLE_ARTIST_KEY, artistId);
+                    intent.putExtra(Constants.BUNDLE_ARTIST_KEY, artistId);
                     startActivity(intent);
                 }
             });

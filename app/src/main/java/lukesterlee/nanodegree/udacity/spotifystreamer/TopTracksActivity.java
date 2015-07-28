@@ -32,7 +32,7 @@ public class TopTracksActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mListView = (ListView) findViewById(R.id.listView_top_tracks);
         if (savedInstanceState == null) {
-            mArtistId = getIntent().getExtras().getString(Constant.BUNDLE_ARTIST_KEY);
+            mArtistId = getIntent().getExtras().getString(Constants.BUNDLE_ARTIST_KEY);
             new AsyncLoading().execute();
         } else {
             mTopTrackList = savedInstanceState.getParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY);
@@ -68,12 +68,12 @@ public class TopTracksActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                     MyTrack selectedTrack = mAdapter.getItem(position);
                     Bundle bundle = new Bundle();
-                    bundle.putString(Constant.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
-                    bundle.putString(Constant.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
-                    bundle.putString(Constant.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
-                    bundle.putString(Constant.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
-                    Intent intent = new Intent(TopTracksActivity.this, PlayerActivity.class);
-                    intent.putExtra(Constant.BUNDLE_SELECTED_TRACK_KEY, bundle);
+                    bundle.putString(Constants.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
+                    bundle.putString(Constants.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
+                    bundle.putString(Constants.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
+                    bundle.putString(Constants.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
+                    Intent intent = new Intent(TopTracksActivity.this, PlayerDialogFragment.class);
+                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, bundle);
                     startActivity(intent);
                 }
             });
