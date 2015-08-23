@@ -45,7 +45,7 @@ public class PlayerDialogFragment extends DialogFragment {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         if (getIntent() == null) {
@@ -73,7 +73,7 @@ public class PlayerDialogFragment extends DialogFragment {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(Constants.BUNDLE_ARTIST_KEY, mArtistName);
         outState.putString(Constants.BUNDLE_ALBUM_KEY, mAlbumName);
