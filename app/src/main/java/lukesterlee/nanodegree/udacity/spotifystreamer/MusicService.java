@@ -1,9 +1,12 @@
 package lukesterlee.nanodegree.udacity.spotifystreamer;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,6 +18,9 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
@@ -69,6 +75,20 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        Intent intent = new Intent(this, PlayerDialogActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Builder builder = new Notification.Builder(this);
+        MyTrack track = mList.get(currentPosition);
+
+        builder.setContentIntent(pendingIntent)
+                .setTicker(track.getTrack())
+                .setOngoing(true);
+        Notification notification = builder.build();
+        startForeground(3, notification);
+
+
     }
 
     @Override
