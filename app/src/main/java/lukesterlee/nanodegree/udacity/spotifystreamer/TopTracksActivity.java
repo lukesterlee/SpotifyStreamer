@@ -25,60 +25,60 @@ public class TopTracksActivity extends ActionBarActivity {
     private ListView mListView;
     private ArrayList<MyTrack> mTopTrackList;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_toptracks);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mListView = (ListView) findViewById(R.id.listView_top_tracks);
-        if (savedInstanceState == null) {
-            mArtistId = getIntent().getExtras().getString(Constants.BUNDLE_ARTIST_KEY);
-            new AsyncLoading().execute();
-        } else {
-            mTopTrackList = savedInstanceState.getParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY);
-            mAdapter = new TopTrackAdapter(TopTracksActivity.this, mTopTrackList);
-            mListView.setAdapter(mAdapter);
-        }
-    }
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.fragment_toptracks);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        mListView = (ListView) findViewById(R.id.listView_top_tracks);
+//        if (savedInstanceState == null) {
+//            mArtistId = getIntent().getExtras().getString(Constants.BUNDLE_ARTIST_KEY);
+//            new AsyncLoading().execute();
+//        } else {
+//            mTopTrackList = savedInstanceState.getParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY);
+//            mAdapter = new TopTrackAdapter(TopTracksActivity.this, mTopTrackList);
+//            mListView.setAdapter(mAdapter);
+//        }
+//    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpListener(true);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        setUpListener(true);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        setUpListener(false);
+//    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        setUpListener(false);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY, mTopTrackList);
+//    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY, mTopTrackList);
-    }
-
-    private void setUpListener(boolean isResumed) {
-        if (!isResumed) {
-            mListView.setOnItemClickListener(null);
-        } else {
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                    MyTrack selectedTrack = mAdapter.getItem(position);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
-                    bundle.putString(Constants.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
-                    bundle.putString(Constants.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
-                    bundle.putString(Constants.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
-                    Intent intent = new Intent(TopTracksActivity.this, PlayerDialogActivity.class);
-                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, bundle);
-                    startActivity(intent);
-                }
-            });
-        }
-    }
+//    private void setUpListener(boolean isResumed) {
+//        if (!isResumed) {
+//            mListView.setOnItemClickListener(null);
+//        } else {
+//            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+//                    MyTrack selectedTrack = mAdapter.getItem(position);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString(Constants.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
+//                    bundle.putString(Constants.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
+//                    bundle.putString(Constants.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
+//                    bundle.putString(Constants.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
+//                    Intent intent = new Intent(TopTracksActivity.this, PlayerDialogActivity.class);
+//                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, bundle);
+//                    startActivity(intent);
+//                }
+//            });
+//        }
+//    }
 
     private class AsyncLoading extends AsyncTask<Void, Void, ArrayList<MyTrack>> {
         @Override

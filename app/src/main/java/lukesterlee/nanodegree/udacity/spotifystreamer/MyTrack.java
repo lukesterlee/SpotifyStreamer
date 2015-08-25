@@ -6,11 +6,11 @@ import org.parceler.Parcel;
 @Parcel
 public class MyTrack {
 
-    private String track;
-    private String album;
-    private String artist;
-    private String thumbnailUrl;
-    private String preview_url;
+    String track;
+    String album;
+    String artist;
+    String thumbnailUrl;
+    String preview_url;
 
     public MyTrack() {
     }
