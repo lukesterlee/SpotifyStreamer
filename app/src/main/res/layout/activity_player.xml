@@ -49,21 +49,21 @@
             <ImageButton
                 android:id="@+id/button_back"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_skip_previous_white_48dp"
+                android:src="@drawable/ic_skip_previous_black_48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageButton
                 android:id="@+id/button_pause"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_play_arrow_white_48dp"
+                android:src="@drawable/ic_play_arrow_black_48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageButton
                 android:id="@+id/button_next"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_skip_next_white_48dp"
+                android:src="@drawable/ic_skip_next_black_48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

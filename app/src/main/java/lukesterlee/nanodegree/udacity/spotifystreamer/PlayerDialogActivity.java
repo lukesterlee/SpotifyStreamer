@@ -78,7 +78,7 @@ public class PlayerDialogActivity extends AppCompatActivity {
             mService.setList(mList);
             musicBound = true;
             mService.playSong(position);
-            mImageButtonPause.setBackgroundResource(R.drawable.ic_pause_white_48dp);
+            mImageButtonPause.setImageResource(R.drawable.ic_pause_black_48dp);
             isPlaying = true;
         }
 
@@ -130,7 +130,7 @@ public class PlayerDialogActivity extends AppCompatActivity {
             position = mList.size() - 1;
         setData(position);
         mService.playPrevious();
-        mImageButtonPause.setBackgroundResource(R.drawable.ic_pause_white_48dp);
+        mImageButtonPause.setImageResource(R.drawable.ic_pause_black_48dp);
         isPlaying = true;
     }
 
@@ -138,11 +138,11 @@ public class PlayerDialogActivity extends AppCompatActivity {
     public void onButtonPause(View view) {
         if (isPlaying) {
             mService.pause();
-            mImageButtonPause.setBackgroundResource(R.drawable.ic_play_arrow_white_48dp);
+            mImageButtonPause.setImageResource(R.drawable.ic_play_arrow_black_48dp);
             isPlaying = false;
         } else {
             mService.pause();
-            mImageButtonPause.setBackgroundResource(R.drawable.ic_pause_white_48dp);
+            mImageButtonPause.setImageResource(R.drawable.ic_pause_black_48dp);
             isPlaying = true;
         }
     }
@@ -154,7 +154,7 @@ public class PlayerDialogActivity extends AppCompatActivity {
             position = 0;
         setData(position);
         mService.playNext();
-        mImageButtonPause.setBackgroundResource(R.drawable.ic_pause_white_48dp);
+        mImageButtonPause.setImageResource(R.drawable.ic_pause_black_48dp);
         isPlaying = true;
     }
 }
