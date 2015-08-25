@@ -3,6 +3,7 @@ package lukesterlee.nanodegree.udacity.spotifystreamer;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,17 +15,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TopTracksFragment extends Fragment {
 
-    private static final String TOP_TRACKS_PARCELABLE_KEY = "top_tracks";
+
     private String mArtistId;
     private TopTrackAdapter mAdapter;
     private ListView mListView;
-    private ArrayList<MyTrack> mTopTrackList;
+    private List<MyTrack> mTopTrackList;
 
     @Nullable
     @Override
@@ -39,7 +42,7 @@ public class TopTracksFragment extends Fragment {
             mArtistId = getArguments().getString(Constants.BUNDLE_ARTIST_KEY);
             new AsyncLoading().execute();
         } else {
-            mTopTrackList = savedInstanceState.getParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY);
+            mTopTrackList = savedInstanceState.getParcelable(Constants.TOP_TRACKS_PARCELABLE_KEY);
             mAdapter = new TopTrackAdapter(getActivity(), mTopTrackList);
             mListView.setAdapter(mAdapter);
         }
@@ -66,13 +69,10 @@ public class TopTracksFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                     MyTrack selectedTrack = mAdapter.getItem(position);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.BUNDLE_TRACK_KEY, selectedTrack.getTrack());
-                    bundle.putString(Constants.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
-                    bundle.putString(Constants.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
-                    bundle.putString(Constants.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
-                    Intent intent = new Intent(getActivity(), PlayerDialogFragment.class);
-                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, bundle);
+                    Intent intent = new Intent(getActivity(), PlayerDialogActivity.class);
+                    Parcelable topTracksParcelable = Parcels.wrap(mTopTrackList);
+                    intent.putExtra(Constants.TOP_TRACKS_PARCELABLE_KEY, topTracksParcelable);
+                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, position);
                     startActivity(intent);
                 }
             });
@@ -111,7 +111,8 @@ public class TopTracksFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(TOP_TRACKS_PARCELABLE_KEY, mTopTrackList);
+        Parcelable topTracksParcelable = Parcels.wrap(mTopTrackList);
+        outState.putParcelable(Constants.TOP_TRACKS_PARCELABLE_KEY, topTracksParcelable);
     }
 
 //    @Override

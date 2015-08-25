@@ -53,9 +53,11 @@ public class ResultGetter {
         ArrayList<MyTrack> topTracksList = new ArrayList<>();
         SpotifyApi api = new SpotifyApi();
         SpotifyService service = api.getService();
+
         Map<String, Object> countryMap = new HashMap<>();
         countryMap.put(COUNTRY_KEY, USA_CODE);
         Tracks tracks = service.getArtistTopTrack(input, countryMap);
+
         List<Track> list = tracks.tracks;
         for (Track track : list) {
             MyTrack newTrack = new MyTrack();
@@ -66,6 +68,7 @@ public class ResultGetter {
             Image image = images.get(0);
             newTrack.setThumbnailUrl(image.url);
             newTrack.setArtist(track.artists.get(0).name);
+            newTrack.setPreview_url(track.preview_url);
             topTracksList.add(newTrack);
         }
         return topTracksList;

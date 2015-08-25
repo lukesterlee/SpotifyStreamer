@@ -72,7 +72,7 @@ public class TopTracksActivity extends ActionBarActivity {
                     bundle.putString(Constants.BUNDLE_ALBUM_KEY, selectedTrack.getAlbum());
                     bundle.putString(Constants.BUNDLE_URL_KEY, selectedTrack.getThumbnailUrl());
                     bundle.putString(Constants.BUNDLE_ARTIST_KEY, selectedTrack.getArtist());
-                    Intent intent = new Intent(TopTracksActivity.this, PlayerDialogFragment.class);
+                    Intent intent = new Intent(TopTracksActivity.this, PlayerDialogActivity.class);
                     intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, bundle);
                     startActivity(intent);
                 }

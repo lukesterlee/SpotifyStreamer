@@ -1,46 +1,26 @@
 package lukesterlee.nanodegree.udacity.spotifystreamer;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
-public class MyTrack implements Parcelable {
+import org.parceler.Parcel;
 
-    public static final Creator<MyTrack> CREATOR = new Creator<MyTrack>() {
-        @Override
-        public MyTrack createFromParcel(Parcel parcel) {
-            return new MyTrack(parcel);
-        }
-
-        @Override
-        public MyTrack[] newArray(int size) {
-            return new MyTrack[size];
-        }
-    };
+@Parcel
+public class MyTrack {
 
     private String track;
     private String album;
     private String artist;
     private String thumbnailUrl;
+    private String preview_url;
 
     public MyTrack() {
-        track = "";
-        album = "";
-        artist = "";
-        thumbnailUrl = "";
     }
 
-    public MyTrack(Parcel parcel) {
-        track = parcel.readString();
-        album = parcel.readString();
-        artist = parcel.readString();
-        thumbnailUrl = parcel.readString();
-    }
-
-    public MyTrack(String track, String album, String artist, String thumbnailUrl) {
+    public MyTrack(String track, String album, String artist, String thumbnailUrl, String preview_url) {
         this.track = track;
         this.album = album;
         this.artist = artist;
         this.thumbnailUrl = thumbnailUrl;
+        this.preview_url = preview_url;
     }
 
     public String getTrack() {
@@ -75,16 +55,12 @@ public class MyTrack implements Parcelable {
         this.artist = artist;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getPreview_url() {
+        return preview_url;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(track);
-        parcel.writeString(album);
-        parcel.writeString(artist);
-        parcel.writeString(thumbnailUrl);
+    public void setPreview_url(String preview_url) {
+        this.preview_url = preview_url;
     }
+
 }
