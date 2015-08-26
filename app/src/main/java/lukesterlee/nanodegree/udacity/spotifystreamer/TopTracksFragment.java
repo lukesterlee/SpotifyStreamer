@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,13 @@ public class TopTracksFragment extends Fragment {
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+
+//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                    Fragment prev = getFragmentManager().findFragmentByTag("Player");
+//                    if (prev != null) {
+//                        transaction.remove(prev);
+//                    }
+
                     MyTrack selectedTrack = mAdapter.getItem(position);
                     PlayerDialogFragment player = new PlayerDialogFragment();
                     Bundle arguments = new Bundle();
