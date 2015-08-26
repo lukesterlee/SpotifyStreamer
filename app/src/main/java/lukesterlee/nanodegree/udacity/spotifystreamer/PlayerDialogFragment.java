@@ -1,5 +1,6 @@
 package lukesterlee.nanodegree.udacity.spotifystreamer;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +8,10 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,26 +50,25 @@ public class PlayerDialogFragment extends DialogFragment {
     private int position;
     private boolean isPlaying;
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View result = inflater.inflate(R.layout.activity_player, container, false);
-
-        ButterKnife.bind(result);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         isPlaying = false;
-        if (getIntent() == null) {
+        if (savedInstanceState == null) {
+            Bundle arguments = getArguments();
+            mList = Parcels.unwrap(arguments.getParcelable(Constants.TOP_TRACKS_PARCELABLE_KEY));
+            position = arguments.getInt(Constants.BUNDLE_SELECTED_TRACK_KEY, 0);
+        } else {
             mList = Parcels.unwrap(savedInstanceState.getParcelable(Constants.TOP_TRACKS_PARCELABLE_KEY));
             position = savedInstanceState.getInt(Constants.BUNDLE_SELECTED_TRACK_KEY);
-        } else {
-            mList = Parcels.unwrap(getIntent().getParcelableExtra(Constants.TOP_TRACKS_PARCELABLE_KEY));
-            position = getIntent().getIntExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, 0);
         }
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.activity_player, null);
+        ButterKnife.bind(this, dialogView);
 
         setData(position);
 
 
-        return result;
+        return new AlertDialog.Builder(getActivity()).setView(dialogView).create();
     }
 
     private ServiceConnection musicConnection = new ServiceConnection() {

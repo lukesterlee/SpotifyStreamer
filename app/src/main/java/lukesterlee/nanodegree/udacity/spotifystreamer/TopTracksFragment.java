@@ -69,11 +69,13 @@ public class TopTracksFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                     MyTrack selectedTrack = mAdapter.getItem(position);
-                    Intent intent = new Intent(getActivity(), PlayerDialogActivity.class);
+                    PlayerDialogFragment player = new PlayerDialogFragment();
+                    Bundle arguments = new Bundle();
                     Parcelable topTracksParcelable = Parcels.wrap(mTopTrackList);
-                    intent.putExtra(Constants.TOP_TRACKS_PARCELABLE_KEY, topTracksParcelable);
-                    intent.putExtra(Constants.BUNDLE_SELECTED_TRACK_KEY, position);
-                    startActivity(intent);
+                    arguments.putParcelable(Constants.TOP_TRACKS_PARCELABLE_KEY, topTracksParcelable);
+                    arguments.putInt(Constants.BUNDLE_SELECTED_TRACK_KEY, position);
+                    player.setArguments(arguments);
+                    player.show(getFragmentManager(), "Player");
                 }
             });
         }
